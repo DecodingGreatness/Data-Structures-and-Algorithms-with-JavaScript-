@@ -10,11 +10,11 @@ class LList {
     this.head = new Node("head");
   }
   find(item) {
-    let curNode = this.head;
-    while (curNode.element != item) {
-      curNode = curNode.next;
+    let currNode = this.head;
+    while (currNode.element != item) {
+      currNode = currNode.next;
     }
-    return curNode;
+    return currNode;
   }
 
   insert(newElement, item) {
@@ -23,4 +23,36 @@ class LList {
     newNode.next = current.next;
     current.next = newNode;
   }
+
+  display() {
+    let currNode = this.head;
+    while (!(currNode.next == null)) {
+      console.log(currNode.next.element);
+      currNode = currNode.next;
+    }
+  }
+
+  findPrevious(item) {
+    let currNode = this.head;
+    while (!(currNode.next == null) && currNode.next.element != item) {
+      currNode = currNode.next;
+    }
+    return currNode;
+  }
+
+  remove(item) {
+    let preNode = this.findPrevious(item);
+    if (!(preNode.next == null)) {
+      preNode.next = preNode.next.next;
+    }
+  }
 }
+
+let cities = new LList();
+cities.insert("Conway", "head");
+cities.insert("Russellville", "Conway");
+cities.insert("Carlisle", "Russellville");
+cities.insert("Alma", "Carlisle");
+cities.display();
+cities.remove("Carlisle");
+cities.display();
