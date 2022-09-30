@@ -22,9 +22,13 @@ class HashTable {
     return parseInt(total);
   }
 
-  put(data) {
-    let pos = this.betterHash(data);
+  put(key, data) {
+    let pos = this.betterHash(key);
     this.table[pos] = data;
+  }
+
+  get(key) {
+    return this.table[this.betterHash(key)];
   }
 
   showDistro() {
@@ -35,21 +39,35 @@ class HashTable {
       }
     }
   }
+
+  buildChains() {
+    for (let i = 0; i < this.table.length; i++) {
+      this.table[i] = new Array();
+    }
+  }
+
+  put2(key, data) {
+    let pos = this.betterHash(key);
+    let index = 0;
+    if (this.table[pos][index] == undefined) {
+      this.table[pos][index] = data;
+      index++;
+    } else {
+      while (this.table[pos][index] != undefined) {
+        index++;
+      }
+      this.table[pos][index] = data;
+    }
+  }
+
+  showDistro2() {
+    let n = 0;
+    for (let i = 0; i < this.table.length; i++) {
+      if (this.table[i] != undefined) {
+        console.log(i + ":" + this.table[i]);
+      }
+    }
+  }
 }
 
-let someNames = [
-  "David",
-  "Jennifer",
-  "Donnie",
-  "Raymond",
-  "Cynthia",
-  "Mike",
-  "Clayton",
-  "Danny",
-  "Jonathan",
-];
-var hTable = new HashTable();
-for (var i = 0; i < someNames.length; ++i) {
-  hTable.put(someNames[i]);
-}
-hTable.showDistro();
+module.exports = HashTable;
