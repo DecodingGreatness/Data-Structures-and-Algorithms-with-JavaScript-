@@ -34,31 +34,58 @@ class Set {
       return false;
     }
   }
+
+  union(set) {
+    let tempSet = new Set();
+    for (let i = 0; i < this.dataStore.length; i++) {
+      tempSet.add(this.dataStore[i]);
+    }
+    for (let i = 0; i < set.dataStore.length; i++) {
+      if (!tempSet.contains(set.dataStore[i])) {
+        tempSet.dataStore.push(set.dataStore[i]);
+      }
+    }
+    return tempSet;
+  }
+
+  intersect(set) {
+    let tempSet = new Set();
+    for (let i = 0; i < this.dataStore.length; i++) {
+      if (set.contains(this.dataStore[i])) {
+        tempSet.add(this.dataStore[i]);
+      }
+    }
+    return tempSet;
+  }
+
+  size() {
+    return this.dataStore.length;
+  }
+
+  subset(set){
+    if(this.size() > set.size()){
+      return false;
+    }
+    else {
+      this.dataStore.forEach(){
+        if(!set.contains(ele)){
+          return false;
+        }
+      }
+    }
+    return true;
+  }
 }
 
-let names = new Set();
-names.add("David");
-names.add("Jennifer");
-names.add("Cynthia");
-names.add("Mike");
-names.add("Raymond");
-if (names.add("Mike")) {
-  console.log("Mike added");
-} else {
-  console.log("Can't add Mike, must already be in set");
-}
-console.log(names.show());
-let removed = "Mike";
-if (names.remove(removed)) {
-  console.log(removed + " removed.");
-} else {
-  console.log(removed + " not removed.");
-}
-names.add("Clayton");
-console.log(names.show());
-removed = "Alisa";
-if (names.remove("Mike")) {
-  console.log(removed + " removed.");
-} else {
-  console.log(removed + " not removed.");
-}
+let cis = new Set();
+cis.add("Mike");
+cis.add("Clayton");
+cis.add("Jennifer");
+cis.add("Raymond");
+let dmp = new Set();
+dmp.add("Raymond");
+dmp.add("Cynthia");
+dmp.add("Jonathan");
+let it = new Set();
+it = cis.union(dmp);
+console.log(it.show());
