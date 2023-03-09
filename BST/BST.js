@@ -39,15 +39,14 @@ class BST {
       }
     }
   }
-}
-
-const inOrder = (node) => {
-  if (!(node == null)) {
-    inOrder(node.left);
-    console.log(node.show() + " ");
-    inOrder(node.right);
+  inOrder(node) {
+    if (!(node == null)) {
+      inOrder(node.left);
+      console.log(node.show() + " ");
+      inOrder(node.right);
+    }
   }
-};
+}
 
 let nums = new BST();
 nums.insert(23);
@@ -58,4 +57,4 @@ nums.insert(3);
 nums.insert(99);
 nums.insert(22);
 console.log("Inorder traversal: ");
-inOrder(nums.root);
+nums.inOrder(nums.root);
